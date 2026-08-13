@@ -295,6 +295,12 @@ input:focus{
   color:#ffb0ba;
 }
 
+.notice.success{
+  border-color:#35d39a35;
+  background:#35d39a0d;
+  color:#9ff1d1;
+}
+
 .table{
   overflow:auto;
   border:1px solid var(--line);
@@ -388,7 +394,65 @@ footer{
   flex-wrap:wrap;
 }
 
+/* PARTICIPANT UPDATE PANEL */
+
+.update-panel{
+  margin-top:18px;
+  padding:18px;
+  border-radius:18px;
+  border:1px solid #35d39a30;
+  background:linear-gradient(
+    135deg,
+    #35d39a0c,
+    #40dfff08
+  );
+}
+
+.update-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.live-dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 12px var(--green);
+  margin-right:7px;
+}
+
+.dashboard-event{
+  margin-top:22px;
+}
+
+.dashboard-event .info{
+  min-height:90px;
+}
+
+.last-update{
+  font-size:12px;
+  color:#8193a9;
+  margin-top:10px;
+}
+
+/* SCHEDULE HIGHLIGHT */
+
+.my-slot{
+  border-color:#40dfff55!important;
+  background:#40dfff0b!important;
+}
+
+.my-slot td{
+  background:#40dfff06;
+}
+
 @media(max-width:850px){
+
   .hero,.authbox{
     grid-template-columns:1fr;
   }
@@ -403,6 +467,7 @@ footer{
 }
 
 @media(max-width:520px){
+
   .nav{
     padding:12px 0;
     align-items:flex-start;
@@ -436,7 +501,9 @@ footer{
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- =========================================================
+LOGIN
+========================================================= -->
 
 <div id="login" class="auth">
 
@@ -624,7 +691,9 @@ Admin Login
 </div>
 
 
-<!-- ================= APPLICATION ================= -->
+<!-- =========================================================
+APPLICATION
+========================================================= -->
 
 <div id="app" class="hidden">
 
@@ -690,7 +759,9 @@ Sign Out
 <main class="wrap">
 
 
-<!-- ================= PARTICIPANT DASHBOARD ================= -->
+<!-- =========================================================
+PARTICIPANT DASHBOARD
+========================================================= -->
 
 <section id="dashboard">
 
@@ -723,18 +794,26 @@ onclick="page('schedule')">
 View Schedule
 </button>
 
+<!-- REFRESH BUTTON -->
+
 <button
 class="btn refresh"
 onclick="refreshParticipantDashboard()">
-↻ Refresh
+↻ Refresh Dashboard
 </button>
 
 </div>
 
 <div
 id="participantRefreshMessage"
-class="notice hidden"
+class="notice success hidden"
 style="margin-top:16px">
+</div>
+
+<div
+id="lastUpdate"
+class="last-update">
+Last updated: —
 </div>
 
 </div>
@@ -761,6 +840,126 @@ id="status"
 class="badge wait">
 Pending
 </span>
+
+<div style="margin-top:18px">
+
+<span class="label">
+Schedule Status
+</span>
+
+<div
+id="scheduleStatus"
+style="margin-top:6px;font-weight:800">
+Waiting for admin
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+EVENT DETAILS DIRECTLY IN DASHBOARD
+========================================================= -->
+
+<div class="glass card dashboard-event">
+
+<div class="topline">
+
+<div>
+
+<div class="eyebrow">
+Event Details
+</div>
+
+<h2>
+Paper Presentation
+</h2>
+
+</div>
+
+<span class="badge ok">
+LIVE EVENT INFORMATION
+</span>
+
+</div>
+
+<div class="event-grid">
+
+<div class="info">
+EVENT
+<b>Quantum Fest 2K26</b>
+</div>
+
+<div class="info">
+FUNCTION
+<b>Paper Presentation</b>
+</div>
+
+<div class="info">
+VENUE
+<b>Hall No. 302</b>
+</div>
+
+<div class="info">
+EVENT TIME
+<b>9:00 AM – 10:30 AM</b>
+</div>
+
+<div class="info">
+SLOT
+<b>Slot – 2</b>
+</div>
+
+<div class="info">
+GUEST
+<b>Mr. V. Manimaran</b>
+</div>
+
+</div>
+
+<p style="margin-bottom:0">
+Each team should consist of 2 to 3 members.
+Presentations will be evaluated based on research quality,
+technical content, innovation, clarity, communication skills
+and ability to answer questions.
+</p>
+
+</div>
+
+
+<!-- =========================================================
+LATEST UPDATE PANEL
+========================================================= -->
+
+<div
+id="participantUpdatePanel"
+class="update-panel hidden">
+
+<div class="update-title">
+
+<div>
+
+<h3>
+<span class="live-dot"></span>
+Latest Event Update
+</h3>
+
+<div
+id="participantUpdateText"
+class="label">
+Checking latest information...
+</div>
+
+</div>
+
+<button
+class="btn refresh"
+onclick="refreshParticipantDashboard()">
+↻ Check Again
+</button>
 
 </div>
 
@@ -825,7 +1024,9 @@ EVENT TIME
 </section>
 
 
-<!-- ================= EVENT ================= -->
+<!-- =========================================================
+EVENT DETAILS PAGE
+========================================================= -->
 
 <section
 id="event"
@@ -859,7 +1060,6 @@ innovation, clarity, communication skills and ability to answer questions.
 Each team should consist of 2 to 3 members and complete their presentation
 within the allotted time.
 </p>
-
 
 <div class="event-grid">
 
@@ -900,7 +1100,9 @@ GUEST
 </section>
 
 
-<!-- ================= SUBMISSION ================= -->
+<!-- =========================================================
+SUBMISSION
+========================================================= -->
 
 <section
 id="submit"
@@ -920,7 +1122,6 @@ Upload Presentation
 Accepted formats: PDF, PPT and PPTX.
 Maximum file size: 50 MB.
 </p>
-
 
 <form
 class="form"
@@ -1059,7 +1260,9 @@ Delete
 </section>
 
 
-<!-- ================= SCHEDULE ================= -->
+<!-- =========================================================
+SCHEDULE
+========================================================= -->
 
 <section
 id="schedule"
@@ -1085,6 +1288,13 @@ onclick="refreshSchedule()">
 ↻ Refresh Schedule
 </button>
 
+</div>
+
+
+<div
+id="scheduleNotice"
+class="notice success hidden"
+style="margin-top:18px">
 </div>
 
 
@@ -1116,7 +1326,9 @@ style="margin-top:18px">
 </section>
 
 
-<!-- ================= ADMIN ================= -->
+<!-- =========================================================
+ADMIN
+========================================================= -->
 
 <section
 id="admin"
@@ -1301,7 +1513,7 @@ class="toast hidden">
 <script>
 
 /* =========================================================
-   CONFIGURATION
+CONFIGURATION
 ========================================================= */
 
 const ADMIN_EMAIL = "admin@123.edu";
@@ -1317,7 +1529,7 @@ const EVENT_TIME = "9:00 AM – 10:30 AM";
 
 
 /* =========================================================
-   GLOBAL VARIABLES
+GLOBAL VARIABLES
 ========================================================= */
 
 let teams = [];
@@ -1326,7 +1538,7 @@ let isAdmin = false;
 
 
 /* =========================================================
-   LOAD TEAMS
+LOAD TEAMS
 ========================================================= */
 
 function loadTeams(){
@@ -1347,7 +1559,7 @@ function loadTeams(){
 
 
 /* =========================================================
-   SAVE TEAMS
+SAVE TEAMS
 ========================================================= */
 
 function saveTeams(){
@@ -1361,33 +1573,36 @@ function saveTeams(){
 
 
 /* =========================================================
-   INITIAL LOAD
+INITIAL LOAD
 ========================================================= */
 
 loadTeams();
 
 
 /* =========================================================
-   TOAST
+TOAST
 ========================================================= */
 
 function toast(msg){
 
-  const t = document.getElementById("toast");
+  const t =
+    document.getElementById("toast");
 
   t.textContent = msg;
 
   t.classList.remove("hidden");
 
   setTimeout(()=>{
+
     t.classList.add("hidden");
+
   },3500);
 
 }
 
 
 /* =========================================================
-   LOGIN SWITCH
+LOGIN SWITCH
 ========================================================= */
 
 function showAdminLogin(){
@@ -1433,7 +1648,7 @@ function showParticipantLogin(){
 
 
 /* =========================================================
-   PARTICIPANT LOGIN
+PARTICIPANT LOGIN
 ========================================================= */
 
 function participantLogin(e){
@@ -1502,8 +1717,6 @@ function participantLogin(e){
   );
 
 
-  /* NEW TEAM */
-
   if(!t){
 
     t = {
@@ -1513,18 +1726,13 @@ function participantLogin(e){
         String(teams.length + 1).padStart(3,"0"),
 
       name:name,
-
       email:email,
-
       password:DEFAULT_PASSWORD,
-
       year:year,
-
       order:teams.length + 1,
-
       start:"",
-
-      paper:null
+      paper:null,
+      updatedAt:Date.now()
 
     };
 
@@ -1539,12 +1747,8 @@ function participantLogin(e){
 
   else{
 
-    /*
-      Existing team:
-      Update year if changed.
-    */
-
     t.year = year;
+    t.updatedAt = Date.now();
 
     saveTeams();
 
@@ -1552,7 +1756,6 @@ function participantLogin(e){
 
 
   user = t;
-
   isAdmin = false;
 
   openApp();
@@ -1563,7 +1766,7 @@ function participantLogin(e){
 
 
 /* =========================================================
-   ADMIN LOGIN
+ADMIN LOGIN
 ========================================================= */
 
 function adminLogin(e){
@@ -1593,7 +1796,6 @@ function adminLogin(e){
 
 
   user = null;
-
   isAdmin = true;
 
   openApp();
@@ -1604,7 +1806,7 @@ function adminLogin(e){
 
 
 /* =========================================================
-   OPEN APP
+OPEN APP
 ========================================================= */
 
 function openApp(){
@@ -1640,13 +1842,12 @@ function openApp(){
 
 
 /* =========================================================
-   LOGOUT
+LOGOUT
 ========================================================= */
 
 function logout(){
 
   user = null;
-
   isAdmin = false;
 
   location.reload();
@@ -1655,7 +1856,7 @@ function logout(){
 
 
 /* =========================================================
-   PAGE NAVIGATION
+PAGE NAVIGATION
 ========================================================= */
 
 function page(p){
@@ -1716,11 +1917,18 @@ function page(p){
 
   }
 
+
+  if(p === "schedule"){
+
+    renderSchedule();
+
+  }
+
 }
 
 
 /* =========================================================
-   FORMAT TIME
+FORMAT TIME
 ========================================================= */
 
 function fmt(v){
@@ -1738,7 +1946,7 @@ function fmt(v){
 
 
 /* =========================================================
-   ESCAPE HTML
+ESCAPE HTML
 ========================================================= */
 
 function esc(s){
@@ -1759,7 +1967,7 @@ function esc(s){
 
 
 /* =========================================================
-   MAIN RENDER
+MAIN RENDER
 ========================================================= */
 
 function render(){
@@ -1775,16 +1983,9 @@ function render(){
       );
 
 
-    /*
-      IMPORTANT:
-      If admin deleted the participant team,
-      notify and log them out.
-    */
-
     if(!t){
 
       handleDeletedTeam();
-
       return;
 
     }
@@ -1846,6 +2047,31 @@ function render(){
       (t.paper ? "ok" : "wait");
 
 
+    const scheduleStatus =
+      document.getElementById("scheduleStatus");
+
+
+    scheduleStatus.textContent =
+      t.start
+        ? `Scheduled at ${fmt(t.start)}`
+        : "Waiting for admin";
+
+
+    scheduleStatus.style.color =
+      t.start
+        ? "var(--green)"
+        : "var(--gold)";
+
+
+    document
+      .getElementById("lastUpdate")
+      .textContent =
+      "Last updated: " +
+      formatDateTime(
+        t.updatedAt
+      );
+
+
     renderSubmission();
 
   }
@@ -1864,7 +2090,37 @@ function render(){
 
 
 /* =========================================================
-   PARTICIPANT REFRESH
+FORMAT DATE/TIME
+========================================================= */
+
+function formatDateTime(timestamp){
+
+  if(!timestamp){
+    return "—";
+  }
+
+  try{
+
+    return new Date(timestamp)
+      .toLocaleString(
+        "en-IN",
+        {
+          dateStyle:"medium",
+          timeStyle:"short"
+        }
+      );
+
+  }catch(e){
+
+    return "—";
+
+  }
+
+}
+
+
+/* =========================================================
+PARTICIPANT DASHBOARD REFRESH
 ========================================================= */
 
 function refreshParticipantDashboard(){
@@ -1876,11 +2132,7 @@ function refreshParticipantDashboard(){
   }
 
 
-  /*
-    Read latest data from localStorage.
-    This is important because the admin may have
-    changed the schedule from another browser/tab.
-  */
+  /* Always get the newest copy */
 
   loadTeams();
 
@@ -1891,9 +2143,9 @@ function refreshParticipantDashboard(){
     );
 
 
-  /*
-    ADMIN DELETED THE TEAM
-  */
+  /* ================================================
+     ADMIN DELETED TEAM
+  ================================================= */
 
   if(!latest){
 
@@ -1904,8 +2156,30 @@ function refreshParticipantDashboard(){
   }
 
 
+  /* ================================================
+     SAVE OLD VALUES BEFORE UPDATE
+  ================================================= */
+
+  const oldStart =
+    user.start || "";
+
+  const oldPaper =
+    user.paper?.name || "";
+
+  const oldYear =
+    user.year || "";
+
+
+  /* ================================================
+     UPDATE USER OBJECT
+  ================================================= */
+
   user = latest;
 
+
+  /* ================================================
+     REFRESH EVERYTHING
+  ================================================= */
 
   render();
 
@@ -1915,37 +2189,137 @@ function refreshParticipantDashboard(){
       "participantRefreshMessage"
     );
 
+  const panel =
+    document.getElementById(
+      "participantUpdatePanel"
+    );
+
+  const updateText =
+    document.getElementById(
+      "participantUpdateText"
+    );
+
 
   message.classList.remove("hidden");
 
-  message.textContent =
-    latest.start
-      ? `✓ Latest schedule loaded. Your presentation starts at ${fmt(latest.start)}.`
-      : "✓ Latest information loaded. Your presentation time has not been assigned yet.";
+  panel.classList.remove("hidden");
 
 
-  toast(
-    latest.start
-      ? `Updated! Your time is ${fmt(latest.start)}.`
-      : "Dashboard refreshed successfully."
-  );
+  /* ================================================
+     DETECT ADMIN CHANGES
+  ================================================= */
+
+  let changes = [];
+
+
+  if(oldStart !== (latest.start || "")){
+
+    if(latest.start){
+
+      changes.push(
+        `Presentation time updated to ${fmt(latest.start)}`
+      );
+
+    }
+    else{
+
+      changes.push(
+        "Presentation time has been removed"
+      );
+
+    }
+
+  }
+
+
+  if(oldYear !== (latest.year || "")){
+
+    changes.push(
+      `Year updated to ${latest.year}`
+    );
+
+  }
+
+
+  if(
+    oldPaper !==
+    (latest.paper?.name || "")
+  ){
+
+    if(latest.paper){
+
+      changes.push(
+        "Presentation submission information updated"
+      );
+
+    }
+    else{
+
+      changes.push(
+        "Presentation submission removed"
+      );
+
+    }
+
+  }
+
+
+  /* ================================================
+     SHOW RESULT
+  ================================================= */
+
+  if(changes.length){
+
+    const result =
+      "✓ " +
+      changes.join(" • ");
+
+
+    message.textContent = result;
+
+    updateText.textContent = result;
+
+    toast(result);
+
+  }
+  else{
+
+    const result =
+      latest.start
+        ? `✓ Latest information loaded. Your presentation is at ${fmt(latest.start)}.`
+        : "✓ Latest information loaded. No new admin changes were found.";
+
+
+    message.textContent = result;
+
+    updateText.textContent = result;
+
+    toast(
+      latest.start
+        ? `Schedule checked. Your time is ${fmt(latest.start)}.`
+        : "Dashboard refreshed successfully."
+    );
+
+  }
+
+
+  document
+    .getElementById("lastUpdate")
+    .textContent =
+    "Last checked: " +
+    formatDateTime(Date.now());
 
 }
 
 
 /* =========================================================
-   HANDLE DELETED TEAM
+HANDLE DELETED TEAM
 ========================================================= */
 
 function handleDeletedTeam(){
 
   const teamName =
     user?.name || "Your team";
-
-
-  toast(
-    `⚠ ${teamName} was deleted by the admin.`
-  );
 
 
   const msg =
@@ -1958,33 +2332,66 @@ function handleDeletedTeam(){
 
     msg.classList.remove("hidden");
 
+    msg.classList.remove("success");
+
     msg.classList.add("dangerNotice");
 
     msg.textContent =
-      "Your team has been deleted by the event admin. You have been signed out.";
+      `⚠ Your team "${teamName}" has been deleted by the event admin.`;
 
   }
+
+
+  const panel =
+    document.getElementById(
+      "participantUpdatePanel"
+    );
+
+
+  if(panel){
+
+    panel.classList.remove("hidden");
+
+  }
+
+
+  const updateText =
+    document.getElementById(
+      "participantUpdateText"
+    );
+
+
+  if(updateText){
+
+    updateText.textContent =
+      `⚠ Team "${teamName}" was deleted by the admin.`;
+
+  }
+
+
+  toast(
+    `⚠ ${teamName} was deleted by the admin.`
+  );
 
 
   setTimeout(()=>{
 
     alert(
-      "Your team has been deleted by the event admin.\n\nYou will now be signed out."
+      `Your team "${teamName}" was deleted by the event admin.\n\nYou will now be signed out.`
     );
 
     user = null;
-
     isAdmin = false;
 
     location.reload();
 
-  },500);
+  },700);
 
 }
 
 
 /* =========================================================
-   SCHEDULE
+SCHEDULE
 ========================================================= */
 
 function renderSchedule(){
@@ -2008,9 +2415,16 @@ function renderSchedule(){
           (a.order || 999) -
           (b.order || 999)
       )
-      .map(t=>`
+      .map(t=>{
 
-<tr>
+        const isMine =
+          !isAdmin &&
+          user &&
+          user.id === t.id;
+
+        return `
+
+<tr class="${isMine ? "my-slot" : ""}">
 
 <td>
 #${String(t.order || 0).padStart(2,"0")}
@@ -2022,6 +2436,7 @@ ${esc(t.id)}
 
 <td>
 <b>${esc(t.name)}</b>
+${isMine ? `<span class="badge ok" style="margin-left:8px">YOUR TEAM</span>` : ""}
 </td>
 
 <td>
@@ -2044,21 +2459,22 @@ ${t.paper ? "Submitted":"Pending"}
 
 </tr>
 
-`)
+`;
+
+      })
       .join("");
 
 }
 
 
 /* =========================================================
-   REFRESH SCHEDULE
+REFRESH SCHEDULE
 ========================================================= */
 
 function refreshSchedule(){
 
   loadTeams();
 
-  renderSchedule();
 
   if(!isAdmin && user){
 
@@ -2067,27 +2483,66 @@ function refreshSchedule(){
         x => x.id === user.id
       );
 
+
     if(!latest){
 
       handleDeletedTeam();
-
       return;
 
     }
 
-    user = latest;
 
-    render();
+    user = latest;
 
   }
 
-  toast("Schedule refreshed successfully.");
+
+  renderSchedule();
+
+
+  const notice =
+    document.getElementById(
+      "scheduleNotice"
+    );
+
+
+  if(notice){
+
+    notice.classList.remove("hidden");
+
+    if(!isAdmin && user){
+
+      const t =
+        teams.find(
+          x => x.id === user.id
+        );
+
+
+      notice.textContent =
+        t?.start
+          ? `✓ Schedule refreshed. Your presentation starts at ${fmt(t.start)}.`
+          : "✓ Schedule refreshed. Your presentation time has not been assigned yet.";
+
+    }
+    else{
+
+      notice.textContent =
+        "✓ Latest presentation schedule loaded.";
+
+    }
+
+  }
+
+
+  toast(
+    "Schedule refreshed successfully."
+  );
 
 }
 
 
 /* =========================================================
-   ADMIN RENDER
+ADMIN RENDER
 ========================================================= */
 
 function renderAdmin(){
@@ -2210,14 +2665,10 @@ Delete
 
 
 /* =========================================================
-   ADMIN REFRESH
+ADMIN REFRESH
 ========================================================= */
 
 function refreshAdminDashboard(){
-
-  /*
-    Force reading latest localStorage data.
-  */
 
   loadTeams();
 
@@ -2246,7 +2697,7 @@ function refreshAdminDashboard(){
 
 
 /* =========================================================
-   CHANGE STARTING TIME
+CHANGE STARTING TIME
 ========================================================= */
 
 function changeTime(id,start){
@@ -2275,11 +2726,6 @@ function changeTime(id,start){
     h * 60 + m;
 
 
-  /*
-    Only starting time is stored.
-    No ending time is displayed or required.
-  */
-
   if(
     minutes < EVENT_START_MINUTES ||
     minutes >= EVENT_END_MINUTES
@@ -2296,20 +2742,24 @@ function changeTime(id,start){
   }
 
 
+  const oldStart =
+    t.start;
+
+
   t.start = start;
+
+  t.updatedAt = Date.now();
 
 
   saveTeams();
+
 
   renderAdmin();
 
   renderSchedule();
 
 
-  /*
-    If this team is the currently logged-in participant,
-    update their dashboard immediately.
-  */
+  /* If participant is logged in with this team */
 
   if(
     !isAdmin &&
@@ -2325,14 +2775,16 @@ function changeTime(id,start){
 
 
   toast(
-    `${t.name} start time updated to ${fmt(start)}.`
+    oldStart !== start
+      ? `${t.name} time updated to ${fmt(start)}. Participant dashboard will show the change after refresh.`
+      : `${t.name} start time saved.`
   );
 
 }
 
 
 /* =========================================================
-   RESET FCFS SCHEDULE
+RESET FCFS SCHEDULE
 ========================================================= */
 
 function resetSchedule(){
@@ -2357,11 +2809,6 @@ function resetSchedule(){
   }
 
 
-  /*
-    8 minutes per presentation.
-    Only START time is saved.
-  */
-
   sorted.forEach((t,i)=>{
 
     const start =
@@ -2384,10 +2831,14 @@ function resetSchedule(){
         Math.floor(start / 60)
       ).padStart(2,"0")
       +
-      ":" +
+      ":"
+      +
       String(
         start % 60
       ).padStart(2,"0");
+
+
+    t.updatedAt = Date.now();
 
   });
 
@@ -2406,7 +2857,7 @@ function resetSchedule(){
 
 
 /* =========================================================
-   DELETE ONE TEAM
+DELETE ONE TEAM
 ========================================================= */
 
 async function deleteTeam(id){
@@ -2437,10 +2888,6 @@ async function deleteTeam(id){
   }
 
 
-  /*
-    Delete uploaded file from IndexedDB.
-  */
-
   await deleteStoredFile(id);
 
 
@@ -2450,10 +2897,6 @@ async function deleteTeam(id){
     );
 
 
-  /*
-    Re-number teams.
-  */
-
   teams
     .sort(
       (a,b)=>
@@ -2462,7 +2905,9 @@ async function deleteTeam(id){
     )
     .forEach(
       (x,i)=>{
+
         x.order = i + 1;
+
       }
     );
 
@@ -2470,9 +2915,7 @@ async function deleteTeam(id){
   saveTeams();
 
 
-  /*
-    Broadcast deletion notification.
-  */
+  /* deletion event */
 
   localStorage.setItem(
     "QF26_TEAM_DELETED",
@@ -2495,7 +2938,7 @@ async function deleteTeam(id){
 
 
 /* =========================================================
-   DELETE ALL TEAMS
+DELETE ALL TEAMS
 ========================================================= */
 
 async function deleteAllTeams(){
@@ -2536,10 +2979,6 @@ async function deleteAllTeams(){
   }
 
 
-  /*
-    Delete all uploaded files.
-  */
-
   for(const t of teams){
 
     await deleteStoredFile(t.id);
@@ -2555,10 +2994,6 @@ async function deleteAllTeams(){
 
   saveTeams();
 
-
-  /*
-    Broadcast deletion event.
-  */
 
   localStorage.setItem(
     "QF26_ALL_TEAMS_DELETED",
@@ -2580,7 +3015,7 @@ async function deleteAllTeams(){
 
 
 /* =========================================================
-   FILE SELECTED
+FILE SELECTED
 ========================================================= */
 
 function fileSelected(input){
@@ -2603,8 +3038,7 @@ function fileSelected(input){
 
 
 /* =========================================================
-   INDEXEDDB
-   Used to store actual uploaded presentations.
+INDEXEDDB
 ========================================================= */
 
 const DB_NAME = "QF26_FILE_DATABASE";
@@ -2663,7 +3097,7 @@ function openFileDB(){
 
 
 /* =========================================================
-   SAVE FILE
+SAVE FILE
 ========================================================= */
 
 async function saveStoredFile(id,file){
@@ -2691,14 +3125,20 @@ async function saveStoredFile(id,file){
 
 
       tx.oncomplete = ()=>{
+
         db.close();
+
         resolve();
+
       };
 
 
       tx.onerror = ()=>{
+
         db.close();
+
         reject(tx.error);
+
       };
 
     }
@@ -2708,7 +3148,7 @@ async function saveStoredFile(id,file){
 
 
 /* =========================================================
-   GET FILE
+GET FILE
 ========================================================= */
 
 async function getStoredFile(id){
@@ -2761,7 +3201,7 @@ async function getStoredFile(id){
 
 
 /* =========================================================
-   DELETE FILE
+DELETE FILE
 ========================================================= */
 
 async function deleteStoredFile(id){
@@ -2820,7 +3260,7 @@ async function deleteStoredFile(id){
 
 
 /* =========================================================
-   SUBMIT PAPER
+SUBMIT PAPER
 ========================================================= */
 
 async function submitPaper(e){
@@ -2920,11 +3360,6 @@ async function submitPaper(e){
 
   try{
 
-    /*
-      If a new file is selected,
-      store the actual File in IndexedDB.
-    */
-
     if(f){
 
       await saveStoredFile(
@@ -2952,14 +3387,13 @@ async function submitPaper(e){
 
     else{
 
-      /*
-        Title-only edit.
-      */
-
       t.paper.title =
         title;
 
     }
+
+
+    t.updatedAt = Date.now();
 
 
     saveTeams();
@@ -2980,6 +3414,7 @@ async function submitPaper(e){
         "Paper title updated successfully."
     );
 
+
   }catch(error){
 
     console.error(error);
@@ -2994,7 +3429,7 @@ async function submitPaper(e){
 
 
 /* =========================================================
-   RENDER SUBMISSION
+RENDER SUBMISSION
 ========================================================= */
 
 function renderSubmission(){
@@ -3019,9 +3454,7 @@ function renderSubmission(){
 
 
   if(!t){
-
     return;
-
   }
 
 
@@ -3105,7 +3538,7 @@ function renderSubmission(){
 
 
 /* =========================================================
-   EDIT PRESENTATION
+EDIT PRESENTATION
 ========================================================= */
 
 function editMyPresentation(){
@@ -3180,7 +3613,7 @@ function editMyPresentation(){
 
 
 /* =========================================================
-   DELETE PARTICIPANT PRESENTATION
+DELETE PARTICIPANT PRESENTATION
 ========================================================= */
 
 async function deleteMyPresentation(){
@@ -3231,9 +3664,7 @@ async function deleteMyPresentation(){
 
 
   if(!confirmed){
-
     return;
-
   }
 
 
@@ -3243,6 +3674,8 @@ async function deleteMyPresentation(){
 
 
   t.paper = null;
+  t.updatedAt = Date.now();
+
 
   saveTeams();
 
@@ -3282,7 +3715,7 @@ async function deleteMyPresentation(){
 
 
 /* =========================================================
-   ADMIN DOWNLOAD
+ADMIN DOWNLOAD
 ========================================================= */
 
 async function downloadPresentation(id){
@@ -3346,7 +3779,6 @@ async function downloadPresentation(id){
 
     a.click();
 
-
     a.remove();
 
 
@@ -3360,6 +3792,7 @@ async function downloadPresentation(id){
     toast(
       `Downloading ${t.paper.name}`
     );
+
 
   }catch(error){
 
@@ -3375,25 +3808,16 @@ async function downloadPresentation(id){
 
 
 /* =========================================================
-   AUTOMATIC TEAM DELETION DETECTION
+AUTOMATIC LOCAL STORAGE CHANGE DETECTION
 ========================================================= */
-
-/*
-  This listens for localStorage changes made by
-  the admin in another browser tab.
-
-  Example:
-
-  Admin deletes:
-      Team: bug busters
-
-  Participant tab receives the change and checks
-  whether its team still exists.
-*/
 
 window.addEventListener(
   "storage",
   function(event){
+
+    /* ================================================
+       TEAM DATA CHANGED
+    ================================================= */
 
     if(
       event.key === "QF26_TEAMS"
@@ -3401,10 +3825,6 @@ window.addEventListener(
 
       loadTeams();
 
-
-      /*
-        Participant is logged in.
-      */
 
       if(
         !isAdmin &&
@@ -3426,25 +3846,77 @@ window.addEventListener(
         }
 
 
-        /*
-          Team still exists.
-          Update participant data automatically.
-        */
+        const oldStart =
+          user.start || "";
+
 
         user = latest;
 
+
         render();
 
-        toast(
-          "✓ Your dashboard information was updated."
-        );
+
+        /* Inform participant */
+
+        const panel =
+          document.getElementById(
+            "participantUpdatePanel"
+          );
+
+
+        const updateText =
+          document.getElementById(
+            "participantUpdateText"
+          );
+
+
+        if(panel){
+
+          panel.classList.remove(
+            "hidden"
+          );
+
+        }
+
+
+        if(updateText){
+
+          if(
+            oldStart !==
+            (latest.start || "")
+          ){
+
+            updateText.textContent =
+              latest.start
+                ?
+                `✓ Admin updated your presentation time to ${fmt(latest.start)}.`
+                :
+                "✓ Admin removed your presentation time.";
+
+            toast(
+              latest.start
+                ?
+                `Your presentation time changed to ${fmt(latest.start)}.`
+                :
+                "Your presentation time was removed."
+            );
+
+          }
+          else{
+
+            updateText.textContent =
+              "✓ Your team information was updated.";
+
+            toast(
+              "Your dashboard information was updated."
+            );
+
+          }
+
+        }
 
       }
 
-
-      /*
-        Admin is open in another tab.
-      */
 
       if(isAdmin){
 
@@ -3456,17 +3928,10 @@ window.addEventListener(
 
     }
 
-  }
-);
 
-
-/* =========================================================
-   EXTRA DELETION EVENT LISTENER
-========================================================= */
-
-window.addEventListener(
-  "storage",
-  function(event){
+    /* ================================================
+       INDIVIDUAL TEAM DELETED
+    ================================================= */
 
     if(
       event.key ===
@@ -3502,6 +3967,10 @@ window.addEventListener(
     }
 
 
+    /* ================================================
+       ALL TEAMS DELETED
+    ================================================= */
+
     if(
       event.key ===
       "QF26_ALL_TEAMS_DELETED"
@@ -3523,13 +3992,8 @@ window.addEventListener(
 
 
 /* =========================================================
-   BROWSER TAB VISIBILITY REFRESH
+BROWSER TAB VISIBILITY REFRESH
 ========================================================= */
-
-/*
-  If participant switches away from the tab and comes back,
-  automatically check whether admin changed anything.
-*/
 
 document.addEventListener(
   "visibilitychange",
@@ -3563,6 +4027,39 @@ document.addEventListener(
 
       render();
 
+
+      const updateText =
+        document.getElementById(
+          "participantUpdateText"
+        );
+
+
+      const panel =
+        document.getElementById(
+          "participantUpdatePanel"
+        );
+
+
+      if(panel){
+
+        panel.classList.remove(
+          "hidden"
+        );
+
+      }
+
+
+      if(updateText){
+
+        updateText.textContent =
+          latest.start
+            ?
+            `✓ Latest schedule checked. Your presentation time is ${fmt(latest.start)}.`
+            :
+            "✓ Latest team information checked.";
+
+      }
+
     }
 
   }
@@ -3570,7 +4067,103 @@ document.addEventListener(
 
 
 /* =========================================================
-   STARTUP
+OPTIONAL AUTOMATIC CHECK EVERY 10 SECONDS
+========================================================= */
+
+setInterval(()=>{
+
+  if(
+    !isAdmin &&
+    user &&
+    !document.hidden
+  ){
+
+    loadTeams();
+
+
+    const latest =
+      teams.find(
+        x => x.id === user.id
+      );
+
+
+    if(!latest){
+
+      handleDeletedTeam();
+
+      return;
+
+    }
+
+
+    if(
+      JSON.stringify(latest) !==
+      JSON.stringify(user)
+    ){
+
+      const oldStart =
+        user.start || "";
+
+
+      user = latest;
+
+      render();
+
+
+      const panel =
+        document.getElementById(
+          "participantUpdatePanel"
+        );
+
+
+      const updateText =
+        document.getElementById(
+          "participantUpdateText"
+        );
+
+
+      if(panel){
+
+        panel.classList.remove(
+          "hidden"
+        );
+
+      }
+
+
+      if(updateText){
+
+        if(
+          oldStart !==
+          (latest.start || "")
+        ){
+
+          updateText.textContent =
+            latest.start
+              ?
+              `✓ Admin updated your presentation time to ${fmt(latest.start)}.`
+              :
+              "✓ Admin removed your presentation time.";
+
+        }
+        else{
+
+          updateText.textContent =
+            "✓ Your team information was updated by the admin.";
+
+        }
+
+      }
+
+    }
+
+  }
+
+},10000);
+
+
+/* =========================================================
+STARTUP
 ========================================================= */
 
 loadTeams();
